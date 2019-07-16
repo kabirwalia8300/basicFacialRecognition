@@ -2,7 +2,7 @@ from __future__ import print_function
 import cv2 as cv
 import argparse
 import base64
-
+import time
 
 class FacRecog:
 
@@ -51,5 +51,4 @@ class FacRecog:
             for (x, y, w, h) in faces:
                 center = (x + w//2, y + h//2)
                 frame = cv.ellipse(frame, center, (w//2, h//2), 0, 0, 360, (255, 0, 255), 4)
-
             return frame
