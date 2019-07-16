@@ -43,7 +43,7 @@ def detFace(cap):
 if __name__=='__main__':
 
     parser = argparse.ArgumentParser(description='Face Detector')
-    parser.add_argument('--face_cascade', help='Path to face cascade.', default='../../opencv_build/opencv/data/haarcascades/haarcascade_frontalface_alt.xml')
+    parser.add_argument('--face_cascade', help='Path to face cascade.', default='../../opencv/data/haarcascades/haarcascade_frontalface_alt.xml')
     parser.add_argument('--camera', help='Camera devide number.', type=int, default=0)
     args = parser.parse_args()
 
@@ -61,7 +61,7 @@ if __name__=='__main__':
         print('--(!)Error opening video capture')
         exit(0)
 
-    return detFace(cap)
+    detFace(cap)
     #cv.imshow('Capture - Face detection', detFace(cap))
     #cv.waitKey(10000)
 
