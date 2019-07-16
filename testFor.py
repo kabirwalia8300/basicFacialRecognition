@@ -1,4 +1,4 @@
-import faceRecog
-import os
+from faceRecog import FacRecog
 
-os.system('python faceRecog.py')
+x = FacRecog()
+print(x.getFoundFrame(), "Frame")
