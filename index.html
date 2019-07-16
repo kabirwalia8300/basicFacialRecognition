@@ -18,11 +18,13 @@
 
         function sendMsg() {
             console.log("SMH")
-            socket.emit("renderFrame", "HELLO WORLDr");
+            socket.emit("renderFrame", "Interaction works");
         }
         socket.on("response", function (data) {
             console.log("HELLO")
-            document.write(data);
+            var image = new Image();
+            image.src = data;
+            document.body.appendChild(image);
         });
     </script>
 </body>
