@@ -3,7 +3,9 @@ import cv2 as cv
 import argparse
 import base64
 
+
 class FacRecog:
+
     def __init__(self):
         parser = argparse.ArgumentParser(description='Face Detector')
         parser.add_argument('--face_cascade', help='Path to face cascade.',
@@ -23,10 +25,17 @@ class FacRecog:
         if not cap.isOpened:
             print('--(!)Error opening video capture')
             exit(0)
-        self.foundFrame = self.detFace(cap)
+        frame = self.detFace(cap)
+        cv.imwrite("./capture.jpg", frame)
+        with open('./capture.jpg', 'rb') as imag:
+            encoded_string = base64.b64encode(imag.read())
+        self.foundFrame = encoded_string
 
     def getFoundFrame(self):
-        return self.foundFrame
+        stringS = str(self.foundFrame)
+        stringS = stringS[2:]
+        stringS = stringS[:-1]
+        return "data:image/jpeg;base64," + stringS
 
     def detFace(self, cap):
         while True:
@@ -41,17 +50,6 @@ class FacRecog:
             cv.waitKey(1000000000)
             for (x, y, w, h) in faces:
                 center = (x + w//2, y + h//2)
-                frame = cv.ellipse(frame, center, (w//2, h//2),
-                                   0, 0, 360, (255, 0, 255), 4)
-            try:
-                if ret:
-                    framesnumpy = frame.tostring()
-                    framesnumpy = base64.b64encode(framesnumpy)
-                else:
-                    framesnumpy = "ignore"
+                frame = cv.ellipse(frame, center, (w//2, h//2), 0, 0, 360, (255, 0, 255), 4)
 
-                return framesnumpy
-
-            except Exception as exc:
-                print("Exception caught")
-                raise exc
+            return frame

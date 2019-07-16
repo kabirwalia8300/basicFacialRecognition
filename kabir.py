@@ -66,6 +66,7 @@ if __name__=='__main__':
         print('--(!)Error opening video capture')
         exit(0)
 
+        # cqll to methods
     frame=detFace(cap)
     cv.imwrite("./capture.jpg", frame)
     #cv.imshow('Capture - Face detection', frame)
