@@ -21,13 +21,13 @@ async def print_message(sid, message):
         imageSX4 = (r.get(index)).decode('utf-8')
         print("Connected via Socket ID: ", sid)
         if(r.get(str(index))) == None:
-            time.sleep(5)
+            time.sleep(2)
             continue
         await sio.emit('response', imageSX4)
         print(message)
         r.delete(str(index))
         index+=1 
-        time.sleep(5)
+        time.sleep(1.5)
     
 app.router.add_get('/', index)
 if __name__ == '__main__':
