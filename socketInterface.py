@@ -17,24 +17,19 @@ async def print_message(sid, message):
     index = 0
     imageSX4 = ""
     print(message)
-    imageSX4 = (r.get("1")).decode('utf-8')
-    # imageSX4.encode('unicode_escape')
-    await sio.emit('response', imageSX4)
-    # while(True):
-    #     imageSX4 = r.get(str(index))
-    #     # imageSX4.encode('unicode_escape')
-    #     print("Connected via Socket ID: ", sid)
-    #     print(imageSX4)
-    #     if(r.get(str(index))) == None:
-    #         time.sleep(5)
-    #         continue
-    #     await sio.emit('response', str(imageSX4))
-    #     print(message)
-    #     r.delete(str(index))
-    #     index+=1 
-    #     time.sleep(5)
+    while(True):
+        imageSX4 = (r.get(index)).decode('utf-8')
+        # imageSX4.encode('unicode_escape')
+        print("Connected via Socket ID: ", sid)
+        if(r.get(str(index))) == None:
+            time.sleep(5)
+            continue
+        await sio.emit('response', imageSX4)
+        print(message)
+        r.delete(str(index))
+        index+=1 
+        time.sleep(5)
     
-
 app.router.add_get('/', index)
 if __name__ == '__main__':
     web.run_app(app)
