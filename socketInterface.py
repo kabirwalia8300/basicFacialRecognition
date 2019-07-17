@@ -19,7 +19,6 @@ async def print_message(sid, message):
     print(message)
     while(True):
         imageSX4 = (r.get(index)).decode('utf-8')
-        # imageSX4.encode('unicode_escape')
         print("Connected via Socket ID: ", sid)
         if(r.get(str(index))) == None:
             time.sleep(5)
