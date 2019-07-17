@@ -40,6 +40,7 @@ class FacRecog:
                 encoded_string = base64.b64encode(imag.read())
             self.foundFrame = encoded_string
             toPass = self.getFoundFrame()
+            if
             r.set(str(frameNum),toPass)
             self.reulsts.append(self.foundFrame)
             frameNum += 1
