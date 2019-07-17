@@ -1,10 +1,12 @@
 from aiohttp import web
 import socketio
 from faceRecog import FacRecog
-
+import time
+import redis
 sio = socketio.AsyncServer()
 app = web.Application()
 sio.attach(app)
+r = redis.Redis(host='localhost', port=6379, db=0)
 
 async def index(request):
     with open('index.html') as f:
@@ -12,12 +14,26 @@ async def index(request):
 
 @sio.on('renderFrame')
 async def print_message(sid, message):
-    x = FacRecog()
-    imageSX4 = x.getFoundFrame()
-    imageSX4.encode('unicode_escape')
-    print("Connected via Socket ID: ", sid)
+    index = 0
+    imageSX4 = ""
     print(message)
+    imageSX4 = (r.get("1")).decode('utf-8')
+    # imageSX4.encode('unicode_escape')
     await sio.emit('response', imageSX4)
+    # while(True):
+    #     imageSX4 = r.get(str(index))
+    #     # imageSX4.encode('unicode_escape')
+    #     print("Connected via Socket ID: ", sid)
+    #     print(imageSX4)
+    #     if(r.get(str(index))) == None:
+    #         time.sleep(5)
+    #         continue
+    #     await sio.emit('response', str(imageSX4))
+    #     print(message)
+    #     r.delete(str(index))
+    #     index+=1 
+    #     time.sleep(5)
+    
 
 app.router.add_get('/', index)
 if __name__ == '__main__':
